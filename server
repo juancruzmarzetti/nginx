@@ -1,0 +1,16 @@
+
+server{
+	listen 80 default_server;
+	listen [::]:80;
+	
+	server_name localhost;
+	root /srv/www/nginx;
+	index index.html;
+	
+	location /admin/
+	{
+		alias /srv/www/htdocs/;
+	}
+
+	error_page 404 404.html;
+}
