@@ -1,1 +1,39 @@
 
+
+server{
+	listen 80 default_server;
+	listen [::]:80;
+	
+	server_name localhost;
+	root /srv/www/nginx;
+	index index.html;
+	
+	location /admin/
+	{
+		alias /srv/www/htdocs/;
+	}
+
+	error_page 404 http://$server_name/404.html;
+
+  location /inicio
+  {
+    try_files /inicio/inicio.html @redireccion;
+  }
+
+  location @redireccion
+  {
+    rewrite ^ http://$server_name/redireccion.html permanent;
+  }
+
+  location /otro
+  {
+    rewrite ^ http://$server_name:200/ permanent;
+  }
+}
+
+server{
+  listen localhost:200 default_server;
+  listen [::]:200;
+  root srv/www/html;
+  index index.html;
+}
