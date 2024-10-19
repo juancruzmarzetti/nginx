@@ -29,6 +29,11 @@ server{
   {
     rewrite ^ http://$server_name:200/ permanent;
   }
+
+  location /descargas
+  {
+    application/pdf pdf thisispdf;
+  }
 }
 
 server{
